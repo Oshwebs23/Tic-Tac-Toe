@@ -1,30 +1,53 @@
-let currentPlayer = 'X';
-let gameBoard = ['','','','','','','','',''];
-let gameActive = true;
+const cells = document.querySelectorAll(".cell");
+const statusText = document.querySelector("#status");
+const restartbutton = document.querySelector("#restartbutton");
+const winConditions = [
+    [0,1,2],
+    [3.4,5],
+    [6,7,8],
+    [0,3,6],
+    [1,4,7],
+    [2,5,8],
+    [0,4,8],
+    [2,4,6],
+];
 
-function playerTurn (clickedCellIndex) {
-    if(gameboard[clickedCellIndex] !== '' || !gameActive){
+let options = ["", "", "", "", "", "", "", "", ""];
+let currentPlayer = "x";
+let running = false;
+
+beginGame();
+
+
+function beginGame () {
+    cells.forEach(cell => cell.addEventListener("click", cellClicked))
+    restartbutton.addEventListener("click", restartGame);
+    statusText.textContent = `${currentPlayer}'s turn!`;
+};
+
+function cellClicked () {
+    const cellIndex = this.getAttribute("cellIndex");
+
+    if(options[cellIndex] != '' || !running) {
         return;
     }
-    gameBoard[clickedCellIndex] = currentPlayer;
-    currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+
+    updateCell(this, cellIndex);
+    checkWinner();
+};
+
+function updateCell (cell, index) {
 
 };
 
-const cells = document.querySelectorAll('.cell');
+function changePlayer () {
 
-cells.forEach(cell => {
-    cell.addEventListener('click', cellClicked, false);
-});
+};
 
-function cellClicked(clickedCellEvent) {
-    const clickedCell = clickedcellEvent.target;
-    const clickedCellIndex = parseInt(clickedCell.id.replace ('cell-', '')) -1 ;
+function checkWinner () {
 
-    if (gameBoard [clickedCellIndex] !== '' || !gameActive) {
-        return;
-    }
+};
 
-    handlePlayerTurn(clickedCellIndex);
-    updateUI();
+function restartGame () {
+
 };
